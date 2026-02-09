@@ -1,4 +1,4 @@
-name: Notificacion CI
+name: Pipeline de Integracion Continua
 
 on:
   push:
@@ -6,19 +6,26 @@ on:
       - main
 
 jobs:
-  notificar:
+  notificacion:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout del repositorio
+      - name: Clonar repositorio
         uses: actions/checkout@v3
 
-      - name: Ejecutar Hola Mundo
+      - name: Configurar entorno Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Ejecutar aplicacion
         run: node index.js
 
-      - name: Enviar notificación a ntfy
+      - name: Enviar notificacion a ntfy
         run: |
-          curl -H "Title: Nuevo Push en main" \
+          MENSAJE="Repositorio: ${{ github.repository }} | Commit: ${{ github.event.head_commit.message }} | Autor: ${{ github.actor }} | Enlace: https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+          
+          curl -H "Title: Ejecucion exitosa de Integracion Continua" \
                -H "Priority: high" \
-               -d "Se ha realizado un push al repositorio hola-mundo-ci" \
+               -d "$MENSAJE" \
                https://ntfy.sh/devops-itla
