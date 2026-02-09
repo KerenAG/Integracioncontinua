@@ -1,6 +1,6 @@
 # Integración Continua con GitHub Actions
 
-![Estado del Workflow](https://github.com/TU-USUARIO/hola-mundo-ci/actions/workflows/alerta.yml/badge.svg)
+![Estado del Workflow](https://github.com/KerenAG/hola-mundo-ci/actions/workflows/alerta.yml/badge.svg)
 
 ## Descripción del Proyecto
 
